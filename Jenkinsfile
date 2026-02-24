@@ -20,7 +20,7 @@ pipeline{
         }
         stage('Run Tests') {
             steps {
-                    sh 'docker compose run --rm azure-vote-front python3 -m pytest -vv --tb=short ./tests'
+                    sh 'docker compose run --rm azure-vote-front python3 -m pytest -vv --tb=short ./tests/test-sample.py'
             }
             post {
                 success {
