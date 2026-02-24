@@ -20,7 +20,7 @@ pipeline{
         }
         stage('Run Tests') {
             steps {
-                sh 'pytest -vv --tb=short ./tests/test_sample.py'
+                sh 'python -m pytest -vv --tb=short ./tests/test_sample.py'
             }
             post {
                 success {
