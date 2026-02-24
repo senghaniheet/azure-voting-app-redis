@@ -33,11 +33,13 @@ pipeline{
         }
         stage('Docker push') {
             steps {
-                echo "Running in $WORKSPACE"
-                dir("$WORKSPACE/azure-voting-app-redis") {
-                    docker.withRegistry('', 'dockerhub') {
-                        def image = docker.build("heetpatel01/azure-vote-front:${env.BUILD_NUMBER}")
-                        image.push()
+                script {
+                    echo "Running in $WORKSPACE"
+                    dir("$WORKSPACE/azure-voting-app-redis") {
+                        docker.withRegistry('', 'dockerhub') {
+                            def image = docker.build("heetpatel01/azure-vote-front:${env.BUILD_NUMBER}")
+                            image.push()
+                        }
                     }
                 }
             }
