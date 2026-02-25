@@ -46,7 +46,9 @@ pipeline{
         }
         stage('Run trivy scan') {
             steps {
-                sh(script: 'trivy image --severity HIGH,CRITICAL --exit-code 1 --no-progress heetpatel01/azure-vote-front:${env.BUILD_NUMBER}')
+                sh '''
+                    trivy image --severity HIGH,CRITICAL --exit-code 1 --no-progress heetpatel01/azure-vote-front:$BUILD_NUMBER
+                    '''
             }
         }
     }
