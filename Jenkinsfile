@@ -55,8 +55,8 @@ pipeline{
             steps {
                 sh '''
                 grype registry:heetpatel01/azure-vote-front:$BUILD_NUMBER \
-                    --severity high,critical \
-                    -o sarif > grype.sarif
+                    -o sarif \
+                    --fail-on high > grype.sarif
                 '''
             }
             post {
