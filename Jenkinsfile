@@ -53,11 +53,19 @@ pipeline{
         // }
         stage('Grype Scan') {
             steps {
-                grypeScan(
-                    autoInstall: true,
-                    scanDest: "registry:heetpatel01/azure-vote-front:${BUILD_NUMBER}",
-                    repName: "grypeReport_${JOB_NAME}_${BUILD_NUMBER}.txt"
-                )
+                sh '''
+                grype registry:heetpatel01/azure-vote-front:$BUILD_NUMBER \
+                    --severity high,critical \
+                    -o sarif > grype.sarif
+                '''
+            }
+            post {
+                always {
+                    recordIssues(
+                        tools: [sarif(pattern: 'grype.sarif')],
+                        enabledForFailure: true
+                    )
+                }
             }
         }
     }
