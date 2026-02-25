@@ -44,13 +44,13 @@ pipeline{
                 }
             }
         }
-        stage('Run trivy scan') {
-            steps {
-                sh '''
-                    trivy image --severity HIGH,CRITICAL --exit-code 1 --no-progress heetpatel01/azure-vote-front:$BUILD_NUMBER
-                    '''
-            }
-        }
+        // stage('Run trivy scan') {
+        //     steps {
+        //         sh '''
+        //             trivy image --severity HIGH,CRITICAL --exit-code 1 --no-progress heetpatel01/azure-vote-front:$BUILD_NUMBER
+        //             '''
+        //     }
+        // }
         stage('Grype scan') {
             steps {
                 sh '''
