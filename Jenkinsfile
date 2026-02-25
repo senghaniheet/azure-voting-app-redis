@@ -51,19 +51,15 @@ pipeline{
         //             '''
         //     }
         // }
-        stage('Grype scan') {
+        stage('Grype Scan') {
             steps {
-                sh '''
-                    grypeScan autoInstall: false, repName: 'grypeReport_${JOB_NAME}_${BUILD_NUMBER}.txt', scanDest: 'registry:heetpatel01/azure-vote-front:$BUILD_NUMBER'
-                    '''
-            }
-            post {
-                always {
-                    recordIsssues(
-                        tools: [grype()],
-                        aggregatingResults: true,
-                    )
-                }
+                grypeScan(
+                    autoInstall: true,
+                    scanDest: "registry:heetpatel01/azure-vote-front:${BUILD_NUMBER}",
+                    outputFormat: 'table',
+                    outputFile: "grypeReport_${JOB_NAME}_${BUILD_NUMBER}.txt",
+                    failBuildOnSeverity: 'critical'
+                )
             }
         }
     }
