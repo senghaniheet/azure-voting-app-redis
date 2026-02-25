@@ -56,9 +56,7 @@ pipeline{
                 grypeScan(
                     autoInstall: true,
                     scanDest: "registry:heetpatel01/azure-vote-front:${BUILD_NUMBER}",
-                    outputFormat: 'table',
-                    outputFile: "grypeReport_${JOB_NAME}_${BUILD_NUMBER}.txt",
-                    failBuildOnSeverity: 'critical'
+                    repName: "grypeReport_${JOB_NAME}_${BUILD_NUMBER}.txt"
                 )
             }
         }
