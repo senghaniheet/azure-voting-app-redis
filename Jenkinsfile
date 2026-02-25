@@ -51,6 +51,21 @@ pipeline{
                     '''
             }
         }
+        stage('Grype scan') {
+            steps {
+                sh '''
+                    grypeScan autoInstall: false, repName: 'grypeReport_${JOB_NAME}_${BUILD_NUMBER}.txt', scanDest: 'registry:heetpatel01/azure-vote-front:$BUILD_NUMBER'
+                    '''
+            }
+            post {
+                always {
+                    recordIsssues(
+                        tools: [grype()],
+                        aggregatingResults: true,
+                    )
+                }
+            }
+        }
     }
     post {
         always {
